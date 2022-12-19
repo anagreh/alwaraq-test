@@ -13,8 +13,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-console.log(__dirname);
-
 app.use('/', indexRouter);
 
 export default app;
