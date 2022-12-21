@@ -1,0 +1,20 @@
+.container {
+  background-color: gainsboro;
+  display: grid;
+  grid-template-columns: 356px 1fr;
+
+  padding-inline: 190px;
+  padding-block: 67px;
+  gap: 41px;
+}
+
+.filter-option-section {
+}
+
+.filter-option-section h2 {
+  font-size: 30px;
+  margin-bottom: 46px;
+}
+
+.result-section {
+}
