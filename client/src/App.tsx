@@ -4,6 +4,7 @@ import Breadcrumbs from "./components/breadcrumbs/Breadcrumbs";
 import SearchForm from "./components/searchForm/SearchForm";
 import FilterResult from "./components/filterResult/FilterResult";
 import SearchResultLayout from "./layouts/searchResultLayout/SearchResultLayout";
+import SearchResult from "./components/searchResult/SearchResult";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       <SearchForm />
       <SearchResultLayout
         filterOptionsSection={<FilterResult />}
-        resultSection={<div>resultSection</div>}
+        resultSection={<SearchResult />}
       />
     </div>
   );
