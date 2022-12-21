@@ -9,7 +9,7 @@ import SearchResult from "./components/searchResult/SearchResult";
 function App() {
   return (
     <div className="App">
-      <PageHeading />
+      <PageHeading forPage="search-result" />
       <Breadcrumbs />
       <SearchForm />
       <SearchResultLayout

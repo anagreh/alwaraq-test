@@ -1,17 +1,25 @@
 .container {
-  background-image: url(../../assets/img/search-heading-bg.png);
   background-size: cover;
 
   display: flex;
   align-items: flex-end;
 
-  height: 371px;
   padding-inline: 190px;
 
   direction: rtl;
 }
 
-.headingContainer {
+.search-result {
+  background-image: url(../../assets/img/search-heading-bg.png);
+  height: 371px;
+}
+
+.book-detail {
+  background-image: url(../../assets/img/book-detail-heading-bg.png);
+  height: 254px;
+}
+
+.heading-container {
   display: flex;
   flex-direction: row;
   align-items: center;
