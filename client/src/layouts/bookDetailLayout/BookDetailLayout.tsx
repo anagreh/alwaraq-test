@@ -1,4 +1,5 @@
 import BookDetail from "../../components/bookDetail/BookDetail";
+import BooksRecommendation from "../../components/BooksRecommendation/BooksRecommendation";
 import styles from "./BookDetailLayout.module.css";
 
 type Props = {};
@@ -10,7 +11,7 @@ const BookDetailLayout = (props: Props) => {
         <BookDetail />
       </section>
       <aside className={styles.recommendationSection}>
-        recommendationSection
+        <BooksRecommendation />
       </aside>
     </div>
   );
