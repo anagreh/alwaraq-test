@@ -20,6 +20,11 @@ a {
   font-weight: bold;
 }
 
+.page-title img {
+  display: inline-block;
+  margin-inline-end: 8px;
+}
+
 .current-page {
   color: #147bfc;
   pointer-events: none;

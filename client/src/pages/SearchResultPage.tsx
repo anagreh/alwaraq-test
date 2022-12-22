@@ -9,7 +9,7 @@ function SearchResultPage() {
   return (
     <>
       <PageHeading forPage="search-result" />
-      <Breadcrumbs />
+      <Breadcrumbs for="searchResult" />
       <SearchForm />
       <SearchResultLayout
         filterOptionsSection={<FilterResult />}
