@@ -1,0 +1,13 @@
+.container {
+  display: grid;
+
+  padding-inline: 190px;
+  grid-template-columns: 1fr 170px;
+}
+
+.book-detail-section {
+}
+
+.recommendation-section {
+  background-color: burlywood;
+}

@@ -1,0 +1,14 @@
+.doc-type {
+  display: flex;
+  border-radius: 3px;
+  font-size: 17px;
+
+  padding-block: 8px;
+  padding-inline: 10px 18px;
+
+  color: white;
+}
+
+.icon {
+  margin-inline-end: 7px;
+}

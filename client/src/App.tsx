@@ -5,17 +5,19 @@ import SearchForm from "./components/searchForm/SearchForm";
 import FilterResult from "./components/filterResult/FilterResult";
 import SearchResultLayout from "./layouts/searchResultLayout/SearchResultLayout";
 import SearchResult from "./components/searchResult/SearchResult";
+import BookDetailLayout from "./layouts/bookDetailLayout/BookDetailLayout";
 
 function App() {
   return (
     <div className="App">
       <PageHeading forPage="search-result" />
       <Breadcrumbs />
-      <SearchForm />
+      {/* <SearchForm />
       <SearchResultLayout
         filterOptionsSection={<FilterResult />}
         resultSection={<SearchResult />}
-      />
+      /> */}
+      <BookDetailLayout />
     </div>
   );
 }
