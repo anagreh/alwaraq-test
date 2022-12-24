@@ -1,0 +1,23 @@
+{
+  "name": "alwaraq",
+  "version": "1.0.0",
+  "description": "test project for alwaraq company by emam al mounqer",
+  "main": "index.js",
+  "scripts": {
+    "install:server": "cd ./client && npm install",
+    "install:client": " cd ./server && npm install",
+    "dev:client": "cd ./client && npm run dev",
+    "dev:server": "cd ../server && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anagreh/alwaraq-test.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anagreh/alwaraq-test/issues"
+  },
+  "homepage": "https://github.com/anagreh/alwaraq-test#readme"
+}
