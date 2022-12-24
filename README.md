@@ -4,6 +4,11 @@ by emam al mounqer
 In cli
 
 ```console
+$ git clone git@github.com:anagreh/alwaraq-test.git
+$ cd ./alwaraq-test
+```
+
+```console
 $ npm run install:server
 $ npm run install:client
 ```
