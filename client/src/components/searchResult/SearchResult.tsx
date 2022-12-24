@@ -1,5 +1,7 @@
 import styles from "./SearchResult.module.css";
 import { Link } from "react-router-dom";
+import ReactLoading from "react-loading";
+
 import { Book } from "../../schema/bookSchema";
 import React from "react";
 import DocTypeIcon from "../docTypeIcon/DocTypeIcon";
@@ -8,7 +10,9 @@ type Props = {
   result: Book[];
   isLoading: boolean;
 };
-const SearchResult = ({ result }: Props) => {
+const SearchResult = ({ result, isLoading }: Props) => {
+  if (isLoading) return <ReactLoading type="balls" color="#147bfc" />;
+
   return (
     <div className={styles.container}>
       <header className={styles.searchHeader}>
