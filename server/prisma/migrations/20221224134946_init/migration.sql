@@ -1,31 +1,22 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE `Book` (
+    `id` VARCHAR(191) NOT NULL,
+    `title` VARCHAR(191) NOT NULL,
+    `year_of_publication` VARCHAR(191) NOT NULL,
+    `publisherId` VARCHAR(191) NOT NULL,
+    `cover_url` VARCHAR(191) NOT NULL,
+    `pdf_url` VARCHAR(191) NOT NULL,
 
-  - The primary key for the `book` table will be changed. If it partially fails, the table could be left without primary key constraint.
-  - You are about to drop the column `name` on the `book` table. All the data in the column will be lost.
-  - Added the required column `cover_url` to the `Book` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `pdf_url` to the `Book` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `publisherId` to the `Book` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `title` to the `Book` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `year_of_publication` to the `Book` table without a default value. This is not possible if the table is not empty.
-
-*/
--- AlterTable
-ALTER TABLE `book` DROP PRIMARY KEY,
-    DROP COLUMN `name`,
-    ADD COLUMN `cover_url` VARCHAR(191) NOT NULL,
-    ADD COLUMN `pdf_url` VARCHAR(191) NOT NULL,
-    ADD COLUMN `publisherId` VARCHAR(191) NOT NULL,
-    ADD COLUMN `title` VARCHAR(191) NOT NULL,
-    ADD COLUMN `year_of_publication` VARCHAR(191) NOT NULL,
-    MODIFY `id` VARCHAR(191) NOT NULL,
-    ADD PRIMARY KEY (`id`);
+    INDEX `Book_title_idx`(`title`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Author` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
 
+    UNIQUE INDEX `Author_name_key`(`name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -34,6 +25,7 @@ CREATE TABLE `Publisher` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
 
+    UNIQUE INDEX `Publisher_name_key`(`name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -42,6 +34,7 @@ CREATE TABLE `Subject` (
     `id` VARCHAR(191) NOT NULL,
     `title` VARCHAR(191) NOT NULL,
 
+    UNIQUE INDEX `Subject_title_key`(`title`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
