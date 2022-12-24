@@ -5,6 +5,7 @@ import BookDetailLayout from "../layouts/bookDetailLayout/BookDetailLayout";
 import { useQuery } from "react-query";
 import { getBookById } from "../services/getBookById";
 import { Book } from "../schema/bookSchema";
+import ReactLoading from "react-loading";
 
 function BookDetailPage() {
   const param = useParams();
@@ -19,7 +20,7 @@ function BookDetailPage() {
       <PageHeading forPage="book-detail" />
       <Breadcrumbs for="bookDetail" bookTitle={data?.title || bookId} />
       {isLoading ? (
-        <p>loading ...</p>
+        <ReactLoading type="balls" />
       ) : (
         data && <BookDetailLayout book={data} />
       )}

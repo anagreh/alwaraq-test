@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Book } from "../../schema/bookSchema";
+import { downloadBookById } from "../../services/downloadBookById";
 import DocTypeIcon from "../docTypeIcon/DocTypeIcon";
 import styles from "./BookDetail.module.css";
 
@@ -119,7 +120,8 @@ function BookDetail({ book }: Props) {
           تاريخ النشر : <span>{book.year_of_publication}</span>
         </p>
         <p>
-          ISBN: <span>{book.id}</span>
+          <span style={{ display: "inline-block" }}>ISBN:</span>{" "}
+          <span>{book.id}</span>
         </p>
         <p>
           لغة الوثيقة: <span></span>
@@ -146,7 +148,10 @@ function BookDetail({ book }: Props) {
         </p>
 
         <div className={styles.extraOption}>
-          <button className={`${styles.btn} ${styles.btnPrimary}`}>
+          <button
+            className={`${styles.btn} ${styles.btnPrimary}`}
+            onClick={() => downloadBookById(book.id)}
+          >
             اقرأ الوثيقة
           </button>
           <button className={`${styles.btn} ${styles.btnSecondary}`}>
@@ -223,7 +228,10 @@ function BookDetail({ book }: Props) {
             </svg>{" "}
             مشاركة
           </button>
-          <button className={`${styles.btn} ${styles.btnSecondary}`}>
+          <button
+            className={`${styles.btn} ${styles.btnSecondary}`}
+            onClick={() => downloadBookById(book.id)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="26.719"

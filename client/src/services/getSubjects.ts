@@ -1,5 +1,5 @@
-export const getSubjects = async (id: string) => {
-  const resp = await fetch(`http://localhost:3000/books/${id}`, {
+export const getSubjects = async () => {
+  const resp = await fetch(`http://localhost:3000/subjects`, {
     method: "GET",
   });
 

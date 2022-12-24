@@ -1,13 +1,19 @@
 import styles from "./SearchResult.module.css";
 import { Link } from "react-router-dom";
+import ReactLoading from "react-loading";
+
 import { Book } from "../../schema/bookSchema";
 import React from "react";
 import DocTypeIcon from "../docTypeIcon/DocTypeIcon";
+import { downloadBookById } from "../../services/downloadBookById";
 
 type Props = {
   result: Book[];
+  isLoading: boolean;
 };
-const SearchResult = ({ result }: Props) => {
+const SearchResult = ({ result, isLoading }: Props) => {
+  if (isLoading) return <ReactLoading type="balls" color="#147bfc" />;
+
   return (
     <div className={styles.container}>
       <header className={styles.searchHeader}>
@@ -251,7 +257,12 @@ const SearchResult = ({ result }: Props) => {
                   alt=""
                 />
               </div>
-              <button className={styles.btn}>اقرأ الوثيقة</button>
+              <button
+                className={styles.btn}
+                onClick={() => downloadBookById(book.id)}
+              >
+                اقرأ الوثيقة
+              </button>
             </div>
 
             <div className={styles.bookInfo}>
@@ -280,7 +291,7 @@ const SearchResult = ({ result }: Props) => {
                   </Link>
                 </p>
                 <p className={styles.isbn}>
-                  ISBN:{" "}
+                  <span>ISBN:</span>{" "}
                   <Link to={"./"} className={styles.dataValue}>
                     {book.id}
                   </Link>
@@ -442,6 +453,7 @@ const SearchResult = ({ result }: Props) => {
                   width="27.755"
                   height="27.97"
                   viewBox="0 0 27.755 27.97"
+                  onClick={() => downloadBookById(book.id)}
                 >
                   <g
                     id="Group_8834"

@@ -34,6 +34,8 @@
   align-items: center;
   border: 1.5px solid #147bfc;
   border-radius: 4px;
+
+  cursor: pointer;
 }
 
 .btn-search-task:nth-child(2) {
@@ -104,6 +106,8 @@
   background-color: #147bfc;
   color: white;
   border-radius: 4px;
+
+  cursor: pointer;
 }
 
 /* middle */
@@ -117,6 +121,10 @@
   grid-template-columns: 1fr 1fr;
   row-gap: 31px;
   padding-inline: 8px;
+}
+
+.isbn > * {
+  display: inline-block;
 }
 
 .data-value {
@@ -183,4 +191,8 @@
   gap: 32px;
 
   width: fit-content;
+}
+
+.extra > svg {
+  cursor: pointer;
 }
