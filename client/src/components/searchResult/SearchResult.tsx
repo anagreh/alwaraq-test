@@ -1,13 +1,18 @@
 import styles from "./SearchResult.module.css";
 import { Link } from "react-router-dom";
+import { Book } from "../../schema/bookSchema";
+import React from "react";
+import DocTypeIcon from "../docTypeIcon/DocTypeIcon";
 
-type Props = {};
-const SearchResult = (props: Props) => {
+type Props = {
+  result: Book[];
+};
+const SearchResult = ({ result }: Props) => {
   return (
     <div className={styles.container}>
       <header className={styles.searchHeader}>
         <div>
-          <h2>1500 نتيجة</h2>
+          <h2>{result.length} نتيجة</h2>
           <div>
             <input type="checkbox" name="selectAll" id="selectAll" />
             <label htmlFor="selectAll">اختيار/إزالة الكل</label>
@@ -230,309 +235,297 @@ const SearchResult = (props: Props) => {
         </div>
       </header>
 
-      <div className={styles.bookSearchResult}>
-        <div className={styles.start}>
-          <div className={styles.bookCover}>
-            <input
-              className={styles.selectBookCheckbox}
-              type="checkbox"
-              name="select-book-checkbox"
-              id="select-book-checkbox"
-            />
-          </div>
-          <button className={styles.btn}>اقرأ الوثيقة</button>
-        </div>
+      {result.map((book) => (
+        <React.Fragment key={book.id}>
+          <div className={styles.bookSearchResult}>
+            <div className={styles.start}>
+              <div className={styles.bookCover}>
+                <input
+                  className={styles.selectBookCheckbox}
+                  type="checkbox"
+                  name="select-book-checkbox"
+                  id="select-book-checkbox"
+                />
+                <img
+                  src={import.meta.env.VITE_SERVER_URL + "/" + book.cover_url}
+                  alt=""
+                />
+              </div>
+              <button className={styles.btn}>اقرأ الوثيقة</button>
+            </div>
 
-        <div className={styles.bookInfo}>
-          <h3 className={styles.bookTitle}>
-            جهود القدماء والمحدثين في وضع الأصول العلمية لأسس تحقيق التراث
-            العربي
-          </h3>
-          <div className={styles.metaDataWrapper}>
-            <p className={styles.author}>
-              تاليف:
-              <Link to={"./"} className={styles.dataValue}>
-                الاسم
-              </Link>
-            </p>
-            <p className={styles.date}>
-              تاريخ النشر :
-              <Link to={"./"} className={styles.dataValue}>
-                الاسم
-              </Link>
-            </p>
-            <p className={styles.publisher}>
-              الناشر :
-              <Link to={"./"} className={styles.dataValue}>
-                الاسم
-              </Link>
-            </p>
-            <p className={styles.isbn}>
-              ISBN:{" "}
-              <Link to={"./"} className={styles.dataValue}>
-                الاسم
-              </Link>
-            </p>
-            <p className={styles.subjects}>
-              المواضيع الرئيسية :
-              <Link to={"./"} className={styles.dataValue}>
-                الاسم
-              </Link>
-            </p>
-            <div className={styles.metaData + " " + styles.tags}>
-              الوسوم:
-              <ul className={styles.tagList}>
-                <li>
-                  <Link to={"./"} className={styles.tagValue}>
-                    وصف
+            <div className={styles.bookInfo}>
+              <h3 className={styles.bookTitle}>
+                <Link to={`/books/${book.id}`}>{book.title}</Link>
+              </h3>
+              <div className={styles.metaDataWrapper}>
+                <p className={styles.author}>
+                  تاليف:
+                  <Link to={"./"} className={styles.dataValue}>
+                    {book.authors.map((author) => (
+                      <span>{author.name},</span>
+                    ))}
                   </Link>
-                </li>
-                <li>
-                  <Link to={"./"} className={styles.tagValue}>
-                    وصف
+                </p>
+                <p className={styles.date}>
+                  تاريخ النشر :
+                  <Link to={"./"} className={styles.dataValue}>
+                    {book.year_of_publication}
                   </Link>
-                </li>
-                <li>
-                  <Link to={"./"} className={styles.tagValue}>
-                    وصف
+                </p>
+                <p className={styles.publisher}>
+                  الناشر :
+                  <Link to={"./"} className={styles.dataValue}>
+                    {book.publisher.name}
                   </Link>
-                </li>
-              </ul>
+                </p>
+                <p className={styles.isbn}>
+                  ISBN:{" "}
+                  <Link to={"./"} className={styles.dataValue}>
+                    {book.id}
+                  </Link>
+                </p>
+                <p className={styles.subjects}>
+                  المواضيع الرئيسية :
+                  <Link to={"./"} className={styles.dataValue}>
+                    {book.subjects.map((sub) => (
+                      <span>{sub.title} ,</span>
+                    ))}
+                  </Link>
+                </p>
+                <div className={styles.metaData + " " + styles.tags}>
+                  الوسوم:
+                  <ul className={styles.tagList}>
+                    <li>
+                      <Link to={"./"} className={styles.tagValue}>
+                        وصف
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to={"./"} className={styles.tagValue}>
+                        وصف
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to={"./"} className={styles.tagValue}>
+                        وصف
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.end}>
+              <DocTypeIcon
+                docType={book.id === "000001" ? "thesis" : "books"}
+              />
+              <div className={styles.extra}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="29"
+                  height="29"
+                  viewBox="0 0 29 29"
+                >
+                  <g
+                    id="Group_8833"
+                    data-name="Group 8833"
+                    transform="translate(1 1.273)"
+                  >
+                    <g id="Group_111" data-name="Group 111">
+                      <circle
+                        id="Ellipse_28"
+                        data-name="Ellipse 28"
+                        cx="13.5"
+                        cy="13.5"
+                        r="13.5"
+                        transform="translate(0 -0.273)"
+                        fill="none"
+                        stroke="#727c89"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                      />
+                    </g>
+                    <g
+                      id="Group_112"
+                      data-name="Group 112"
+                      transform="translate(10.216 6.652)"
+                    >
+                      <ellipse
+                        id="Ellipse_29"
+                        data-name="Ellipse 29"
+                        cx="1.65"
+                        cy="1.553"
+                        rx="1.65"
+                        ry="1.553"
+                        transform="translate(2.665)"
+                        fill="#727c89"
+                      />
+                      <path
+                        id="Path_3385"
+                        data-name="Path 3385"
+                        d="M992.8,717.719c-.013.283.295,1.18,1.892.686a.115.115,0,0,1,.145.142l-.093.34a.38.38,0,0,1-.229.256,8.211,8.211,0,0,1-2.623.578,1.757,1.757,0,0,1-1.942-1.551c-.006-.055-.01-.11-.011-.165.2-1.776,1.108-4.757,1.119-5.313.006-.283-.294-1.179-1.891-.686a.115.115,0,0,1-.144-.078.11.11,0,0,1,0-.065l.093-.339a.38.38,0,0,1,.229-.256,8.207,8.207,0,0,1,2.623-.578,1.763,1.763,0,0,1,1.943,1.561c.005.051.009.1.01.155C993.922,714.138,992.857,716.538,992.8,717.719Z"
+                        transform="translate(-989.021 -706.092)"
+                        fill="#727c89"
+                      />
+                    </g>
+                  </g>
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="27.755"
+                  height="25.007"
+                  viewBox="0 0 27.755 25.007"
+                >
+                  <g
+                    id="Group_8837"
+                    data-name="Group 8837"
+                    transform="translate(1 1)"
+                  >
+                    <rect
+                      id="Rectangle_308"
+                      data-name="Rectangle 308"
+                      width="20.507"
+                      height="18.288"
+                      rx="2"
+                      transform="translate(5.248 0)"
+                      fill="none"
+                      stroke="#727c89"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                    />
+                    <path
+                      id="Path_9498"
+                      data-name="Path 9498"
+                      d="M905.659,829.358v14.807a3.149,3.149,0,0,0,3.149,3.15h17.475"
+                      transform="translate(-905.659 -824.307)"
+                      fill="none"
+                      stroke="#727c89"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                    />
+                    <g
+                      id="Group_8836"
+                      data-name="Group 8836"
+                      transform="translate(9.881 3.522)"
+                    >
+                      <line
+                        id="Line_16"
+                        data-name="Line 16"
+                        y2="11.243"
+                        transform="translate(5.621 0)"
+                        fill="none"
+                        stroke="#727c89"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                      />
+                      <line
+                        id="Line_17"
+                        data-name="Line 17"
+                        x1="11.243"
+                        transform="translate(0 5.621)"
+                        fill="none"
+                        stroke="#727c89"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                      />
+                    </g>
+                  </g>
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="27.755"
+                  height="27.97"
+                  viewBox="0 0 27.755 27.97"
+                >
+                  <g
+                    id="Group_8834"
+                    data-name="Group 8834"
+                    transform="translate(1 1)"
+                  >
+                    <g id="arrow-right" transform="translate(8.246 0)">
+                      <line
+                        id="Line_3"
+                        data-name="Line 3"
+                        y1="13.43"
+                        transform="translate(4.632)"
+                        fill="none"
+                        stroke="#727c89"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                      />
+                      <path
+                        id="Path_3"
+                        data-name="Path 3"
+                        d="M1052.97,712.107l4.632,5.489,4.632-5.489Z"
+                        transform="translate(-1052.97 -699.267)"
+                        fill="#727c89"
+                        stroke="#727c89"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                      />
+                    </g>
+                    <path
+                      id="Path_9497"
+                      data-name="Path 9497"
+                      d="M1039.233,717.879v3.781a4.875,4.875,0,0,0,4.875,4.875h16a4.875,4.875,0,0,0,4.875-4.875v-3.781"
+                      transform="translate(-1039.233 -700.566)"
+                      fill="none"
+                      stroke="#727c89"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                    />
+                  </g>
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28.701"
+                  height="28.664"
+                  viewBox="0 0 28.701 28.664"
+                >
+                  <g
+                    id="Group_8832"
+                    data-name="Group 8832"
+                    transform="translate(1 1.026)"
+                  >
+                    <path
+                      id="Path_9495"
+                      data-name="Path 9495"
+                      d="M937.98,693.32l-7.484-7.772a.863.863,0,0,0-1.485.6v3.742h-.288A11.239,11.239,0,0,0,917.5,701.115v1.727a.851.851,0,0,0,.672.825.832.832,0,0,0,.19.023.891.891,0,0,0,.789-.49,9.445,9.445,0,0,1,8.495-5.251h1.368v3.742a.863.863,0,0,0,1.485.6l7.484-7.772A.863.863,0,0,0,937.98,693.32Z"
+                      transform="translate(-911.622 -685.283)"
+                      fill="none"
+                      stroke="#727c89"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                    />
+                    <path
+                      id="Path_9496"
+                      data-name="Path 9496"
+                      d="M910.642,696.657H907.96a2.3,2.3,0,0,0-2.3,2.3v16.39a2.3,2.3,0,0,0,2.3,2.3h21a2.3,2.3,0,0,0,2.3-2.3v-7.2"
+                      transform="translate(-905.659 -691.012)"
+                      fill="none"
+                      stroke="#727c89"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                    />
+                  </g>
+                </svg>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div className={styles.end}>
-          <div className={styles.bookType}>
-            <svg
-              className={styles.icon}
-              id="Group_8880"
-              data-name="Group 8880"
-              xmlns="http://www.w3.org/2000/svg"
-              width="19.982"
-              height="14.961"
-              viewBox="0 0 19.982 14.961"
-            >
-              <path
-                id="Path_8850"
-                data-name="Path 8850"
-                d="M1544.644,851.837a.529.529,0,0,1-.174-.03l-6.7-2.329a.324.324,0,0,0-.4.347v4.737a.36.36,0,0,0,.22.346l6.962,2.482a.272.272,0,0,0,.184,0l6.962-2.482a.36.36,0,0,0,.22-.346v-4.737a.324.324,0,0,0-.4-.347l-6.7,2.329A.528.528,0,0,1,1544.644,851.837Z"
-                transform="translate(-1534.653 -842.446)"
-                fill="#fff"
-              />
-              <path
-                id="Path_8851"
-                data-name="Path 8851"
-                d="M1542.572,809.791l-9.653-3.434a.287.287,0,0,0-.194,0l-9.653,3.434a.426.426,0,0,0,0,.768l9.653,3.434a.288.288,0,0,0,.194,0l9.653-3.434A.426.426,0,0,0,1542.572,809.791Z"
-                transform="translate(-1522.831 -806.34)"
-                fill="#fff"
-              />
-            </svg>
-            رسالة
-          </div>
-          <div className={styles.extra}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="29"
-              height="29"
-              viewBox="0 0 29 29"
-            >
-              <g
-                id="Group_8833"
-                data-name="Group 8833"
-                transform="translate(1 1.273)"
-              >
-                <g id="Group_111" data-name="Group 111">
-                  <circle
-                    id="Ellipse_28"
-                    data-name="Ellipse 28"
-                    cx="13.5"
-                    cy="13.5"
-                    r="13.5"
-                    transform="translate(0 -0.273)"
-                    fill="none"
-                    stroke="#727c89"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                  />
-                </g>
-                <g
-                  id="Group_112"
-                  data-name="Group 112"
-                  transform="translate(10.216 6.652)"
-                >
-                  <ellipse
-                    id="Ellipse_29"
-                    data-name="Ellipse 29"
-                    cx="1.65"
-                    cy="1.553"
-                    rx="1.65"
-                    ry="1.553"
-                    transform="translate(2.665)"
-                    fill="#727c89"
-                  />
-                  <path
-                    id="Path_3385"
-                    data-name="Path 3385"
-                    d="M992.8,717.719c-.013.283.295,1.18,1.892.686a.115.115,0,0,1,.145.142l-.093.34a.38.38,0,0,1-.229.256,8.211,8.211,0,0,1-2.623.578,1.757,1.757,0,0,1-1.942-1.551c-.006-.055-.01-.11-.011-.165.2-1.776,1.108-4.757,1.119-5.313.006-.283-.294-1.179-1.891-.686a.115.115,0,0,1-.144-.078.11.11,0,0,1,0-.065l.093-.339a.38.38,0,0,1,.229-.256,8.207,8.207,0,0,1,2.623-.578,1.763,1.763,0,0,1,1.943,1.561c.005.051.009.1.01.155C993.922,714.138,992.857,716.538,992.8,717.719Z"
-                    transform="translate(-989.021 -706.092)"
-                    fill="#727c89"
-                  />
-                </g>
-              </g>
-            </svg>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="27.755"
-              height="25.007"
-              viewBox="0 0 27.755 25.007"
-            >
-              <g
-                id="Group_8837"
-                data-name="Group 8837"
-                transform="translate(1 1)"
-              >
-                <rect
-                  id="Rectangle_308"
-                  data-name="Rectangle 308"
-                  width="20.507"
-                  height="18.288"
-                  rx="2"
-                  transform="translate(5.248 0)"
-                  fill="none"
-                  stroke="#727c89"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-                <path
-                  id="Path_9498"
-                  data-name="Path 9498"
-                  d="M905.659,829.358v14.807a3.149,3.149,0,0,0,3.149,3.15h17.475"
-                  transform="translate(-905.659 -824.307)"
-                  fill="none"
-                  stroke="#727c89"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-                <g
-                  id="Group_8836"
-                  data-name="Group 8836"
-                  transform="translate(9.881 3.522)"
-                >
-                  <line
-                    id="Line_16"
-                    data-name="Line 16"
-                    y2="11.243"
-                    transform="translate(5.621 0)"
-                    fill="none"
-                    stroke="#727c89"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                  />
-                  <line
-                    id="Line_17"
-                    data-name="Line 17"
-                    x1="11.243"
-                    transform="translate(0 5.621)"
-                    fill="none"
-                    stroke="#727c89"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                  />
-                </g>
-              </g>
-            </svg>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="27.755"
-              height="27.97"
-              viewBox="0 0 27.755 27.97"
-            >
-              <g
-                id="Group_8834"
-                data-name="Group 8834"
-                transform="translate(1 1)"
-              >
-                <g id="arrow-right" transform="translate(8.246 0)">
-                  <line
-                    id="Line_3"
-                    data-name="Line 3"
-                    y1="13.43"
-                    transform="translate(4.632)"
-                    fill="none"
-                    stroke="#727c89"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                  />
-                  <path
-                    id="Path_3"
-                    data-name="Path 3"
-                    d="M1052.97,712.107l4.632,5.489,4.632-5.489Z"
-                    transform="translate(-1052.97 -699.267)"
-                    fill="#727c89"
-                    stroke="#727c89"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                  />
-                </g>
-                <path
-                  id="Path_9497"
-                  data-name="Path 9497"
-                  d="M1039.233,717.879v3.781a4.875,4.875,0,0,0,4.875,4.875h16a4.875,4.875,0,0,0,4.875-4.875v-3.781"
-                  transform="translate(-1039.233 -700.566)"
-                  fill="none"
-                  stroke="#727c89"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </g>
-            </svg>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="28.701"
-              height="28.664"
-              viewBox="0 0 28.701 28.664"
-            >
-              <g
-                id="Group_8832"
-                data-name="Group 8832"
-                transform="translate(1 1.026)"
-              >
-                <path
-                  id="Path_9495"
-                  data-name="Path 9495"
-                  d="M937.98,693.32l-7.484-7.772a.863.863,0,0,0-1.485.6v3.742h-.288A11.239,11.239,0,0,0,917.5,701.115v1.727a.851.851,0,0,0,.672.825.832.832,0,0,0,.19.023.891.891,0,0,0,.789-.49,9.445,9.445,0,0,1,8.495-5.251h1.368v3.742a.863.863,0,0,0,1.485.6l7.484-7.772A.863.863,0,0,0,937.98,693.32Z"
-                  transform="translate(-911.622 -685.283)"
-                  fill="none"
-                  stroke="#727c89"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-                <path
-                  id="Path_9496"
-                  data-name="Path 9496"
-                  d="M910.642,696.657H907.96a2.3,2.3,0,0,0-2.3,2.3v16.39a2.3,2.3,0,0,0,2.3,2.3h21a2.3,2.3,0,0,0,2.3-2.3v-7.2"
-                  transform="translate(-905.659 -691.012)"
-                  fill="none"
-                  stroke="#727c89"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-      </div>
+          ;
+        </React.Fragment>
+      ))}
     </div>
   );
 };

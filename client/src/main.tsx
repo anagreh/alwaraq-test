@@ -1,12 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import App from "./App";
 import "./styles/index.css";
-import SearchForm from "./components/searchForm/SearchForm";
-import SearchResultLayout from "./layouts/searchResultLayout/SearchResultLayout";
-import FilterResult from "./components/filterResult/FilterResult";
-import SearchResult from "./components/searchResult/SearchResult";
 import SearchResultPage from "./pages/SearchResultPage";
 import BookDetailPage from "./pages/BookDetailPage";
 
@@ -27,8 +25,12 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </React.StrictMode>,
 );

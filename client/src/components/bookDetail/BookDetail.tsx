@@ -1,12 +1,18 @@
 import { Link } from "react-router-dom";
+import { Book } from "../../schema/bookSchema";
 import DocTypeIcon from "../docTypeIcon/DocTypeIcon";
 import styles from "./BookDetail.module.css";
 
-type Props = {};
-function BookDetail({}: Props) {
+type Props = {
+  book: Book;
+};
+function BookDetail({ book }: Props) {
   return (
     <div className={styles.container}>
-      <img src="" alt="" className={styles.bookCover} />
+      <img
+        src={import.meta.env.VITE_SERVER_URL + "/" + book.cover_url}
+        className={styles.bookCover}
+      />
       <div className={styles.bookInfo}>
         <div className={styles.top}>
           <DocTypeIcon docType="books" />
@@ -86,18 +92,40 @@ function BookDetail({}: Props) {
             تصدير إلى مارك
           </button>
         </div>
-        <h2>
-          جهود القدماء والمحدثين في وضع الأصول العلمية لأسس تحقيق التراث العربي
-        </h2>
-        <p>تأليف :</p>
-        <p>الناشر :</p>
-        <p>المواضيع الرئيسية :</p>
-        <p>عدد الصفحات:</p>
-        <p>تاريخ النشر :</p>
-        <p>ISBN:</p>
-        <p>لغة الوثيقة:</p>
+        <h2>{book.title} </h2>
+        <p>
+          تأليف :{" "}
+          <span>
+            {book.authors.map((a) => (
+              <span>{a.name} , </span>
+            ))}
+          </span>
+        </p>
+        <p>
+          الناشر : <span>{book.publisher.name}</span>
+        </p>
+        <p>
+          المواضيع الرئيسية :{" "}
+          <span>
+            {book.subjects.map((s) => (
+              <span>{s.title} , </span>
+            ))}
+          </span>
+        </p>
+        <p>
+          عدد الصفحات: <span></span>
+        </p>
+        <p>
+          تاريخ النشر : <span>{book.year_of_publication}</span>
+        </p>
+        <p>
+          ISBN: <span>{book.id}</span>
+        </p>
+        <p>
+          لغة الوثيقة: <span></span>
+        </p>
         <p className={styles.tags}>
-          <span>الوسوم:</span>
+          <span>الوسوم: </span>
           <ul className={styles.tagList}>
             <li>
               <Link to={"./"} className={styles.tagValue}>

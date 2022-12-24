@@ -1,14 +1,20 @@
+import { useState } from "react";
 import styles from "./SearchForm.module.css";
 
-type Props = {};
-const SearchForm = (props: Props) => {
-  const handleOnSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+type Props = {
+  handleOnSubmit: (searchInputValue: string) => void;
+};
+const SearchForm = ({ handleOnSubmit }: Props) => {
+  const [searchInput, setSearchInput] = useState("");
+
+  const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+    handleOnSubmit(searchInput);
   };
 
   return (
     <div className={styles.container}>
-      <form className={styles.searchForm} onSubmit={handleOnSubmit}>
+      <form className={styles.searchForm} onSubmit={onSubmit}>
         <select id="search-select" className={styles.selectInput}>
           <option value="تصفح المكتبة الرقمية">تصفح المكتبة الرقمية</option>
         </select>
@@ -19,6 +25,8 @@ const SearchForm = (props: Props) => {
             name="search"
             id="search"
             placeholder="نص البحث"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
           />
           <svg
             className={styles.searchIcon}

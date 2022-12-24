@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 type Props =
   | {
       for: "bookDetail";
-      bookId: string;
+      bookTitle: string;
     }
   | {
       for: "searchResult";
@@ -42,7 +42,7 @@ const Breadcrumbs = (props: Props) => {
         <span className={styles.divider}>/</span>
 
         <Link to="./" className={`${styles.pageTitle} ${styles.currentPage}`}>
-          {props.bookId}
+          {props.bookTitle}
         </Link>
       </nav>
     );
