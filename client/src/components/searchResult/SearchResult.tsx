@@ -6,6 +6,7 @@ import DocTypeIcon from "../docTypeIcon/DocTypeIcon";
 
 type Props = {
   result: Book[];
+  isLoading: boolean;
 };
 const SearchResult = ({ result }: Props) => {
   return (

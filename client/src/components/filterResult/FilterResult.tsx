@@ -1,51 +1,42 @@
 import styles from "./FilterResult.module.css";
 import upArrow from "../../assets/icons/up-arrow.svg";
 import { useEffect, useState } from "react";
+import { Subject } from "../../schema/bookSchema";
+import { HandleSelectedSubjectsChange } from "../../pages/SearchResultPage";
 
-type option = {
-  id: string;
-  title: string;
-  bookNum?: number;
-  checked: boolean;
+type Props = {
+  subjects: Subject[];
+  isLoading: boolean;
+  selectedSubjects: string[];
+  handleSelectedSubjectsChange: HandleSelectedSubjectsChange;
 };
-
-//TODO: make that tha all option is inside option value
-const optionsValue: option[] = [...new Array(30)].map((_, i) => ({
-  id: i.toString(),
-  title: "الموضوع الأول",
-  bookNum: Math.floor(Math.random() * 1000),
-  checked: false,
-}));
-
-type Props = {};
-const FilterResult = (props: Props) => {
+const FilterResult = ({
+  subjects,
+  selectedSubjects,
+  handleSelectedSubjectsChange,
+}: Props) => {
   const [shown, setShown] = useState(false);
   const [checkAllOption, setCheckAllOption] = useState(false);
-  const [options, setOptions] = useState(optionsValue);
 
   const handleCheckChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    setOptions((optionsState) => {
-      return optionsState.map((option) => {
-        if (e.target.id == option.id) {
-          return { ...option, checked: !option.checked };
-        }
-        return option;
-      });
-    });
+    if (e.target.checked) {
+      handleSelectedSubjectsChange({ type: "add", payload: e.target.name });
+    } else {
+      handleSelectedSubjectsChange({ type: "remove", payload: e.target.name });
+
+      setCheckAllOption(false);
+    }
   };
 
   const handleCheckAll = () => {
-    setOptions(
-      options.map((option) => ({ ...option, checked: checkAllOption })),
-    );
-    setCheckAllOption((value) => !value);
+    if (!checkAllOption) {
+      handleSelectedSubjectsChange({ type: "all" });
+      setCheckAllOption(true);
+    } else {
+      handleSelectedSubjectsChange({ type: "none" });
+      setCheckAllOption(false);
+    }
   };
-
-  useEffect(() => {
-    setOptions(
-      options.map((option) => ({ ...option, checked: checkAllOption })),
-    );
-  }, [checkAllOption]);
 
   return (
     <div className={styles.container}>
@@ -60,14 +51,20 @@ const FilterResult = (props: Props) => {
 
       <div className={styles.options + " " + (shown ? styles.shown : "")}>
         <OptionCheckBox
-          option={{ id: "all", checked: checkAllOption, title: "الكل" }}
+          id="all"
+          checked={checkAllOption}
+          name="all"
+          title="الكل"
           handleCheckChange={handleCheckAll}
         />
-        {options.map((option) => (
+        {subjects.map((subject) => (
           <OptionCheckBox
-            option={option}
+            id={subject.id}
+            checked={selectedSubjects.includes(subject.id)}
+            name={subject.id}
+            title={subject.title}
             handleCheckChange={handleCheckChange}
-            key={option.id}
+            key={subject.id}
           />
         ))}
       </div>
@@ -76,11 +73,17 @@ const FilterResult = (props: Props) => {
 };
 
 type OptionCheckBoxProps = {
-  option: option;
+  name: string;
+  id: string;
+  checked: boolean;
+  title: string;
   handleCheckChange: React.ChangeEventHandler<HTMLInputElement>;
 };
+
 function OptionCheckBox({
-  option: { id, bookNum, title, checked },
+  id,
+  title,
+  checked,
   handleCheckChange,
 }: OptionCheckBoxProps) {
   return (
@@ -93,7 +96,6 @@ function OptionCheckBox({
         onChange={handleCheckChange}
       />
       <label htmlFor={id}>{title}</label>
-      {bookNum && <span>({bookNum})</span>}
     </div>
   );
 }

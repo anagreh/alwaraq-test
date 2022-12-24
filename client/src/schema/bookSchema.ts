@@ -15,7 +15,7 @@ type Publisher = {
   name: string;
 };
 
-type Subject = {
+export type Subject = {
   id: string;
   title: string;
 };
