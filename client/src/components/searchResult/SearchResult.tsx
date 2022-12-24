@@ -5,6 +5,7 @@ import ReactLoading from "react-loading";
 import { Book } from "../../schema/bookSchema";
 import React from "react";
 import DocTypeIcon from "../docTypeIcon/DocTypeIcon";
+import { downloadBookById } from "../../services/downloadBookById";
 
 type Props = {
   result: Book[];
@@ -256,7 +257,12 @@ const SearchResult = ({ result, isLoading }: Props) => {
                   alt=""
                 />
               </div>
-              <button className={styles.btn}>اقرأ الوثيقة</button>
+              <button
+                className={styles.btn}
+                onClick={() => downloadBookById(book.id)}
+              >
+                اقرأ الوثيقة
+              </button>
             </div>
 
             <div className={styles.bookInfo}>
@@ -285,7 +291,7 @@ const SearchResult = ({ result, isLoading }: Props) => {
                   </Link>
                 </p>
                 <p className={styles.isbn}>
-                  ISBN:{" "}
+                  <span>ISBN:</span>{" "}
                   <Link to={"./"} className={styles.dataValue}>
                     {book.id}
                   </Link>
@@ -447,6 +453,7 @@ const SearchResult = ({ result, isLoading }: Props) => {
                   width="27.755"
                   height="27.97"
                   viewBox="0 0 27.755 27.97"
+                  onClick={() => downloadBookById(book.id)}
                 >
                   <g
                     id="Group_8834"
