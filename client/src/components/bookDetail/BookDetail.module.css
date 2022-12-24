@@ -1,0 +1,95 @@
+.container {
+  display: grid;
+  grid-template-columns: max-content auto;
+}
+
+.book-cover {
+  background-color: #825444;
+  width: 289px;
+  height: 386px;
+
+  filter: drop-shadow(0 7px 17px #7187a011);
+}
+
+.bookInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  font-size: 16px;
+  padding-inline: 33px;
+}
+
+.top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.btn-task {
+  background-color: #147cfc36;
+
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #147bfc;
+  border-radius: 4px;
+
+  height: 52px;
+
+  cursor: pointer;
+}
+
+.icon {
+  padding-inline: 7px;
+}
+
+.bookInfo h2 {
+  font-size: 18px;
+}
+
+.tags {
+  display: flex;
+  align-items: center;
+}
+
+.tag-list {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  gap: 15px;
+}
+
+.tag-list a {
+  display: block;
+}
+
+.tag-value {
+  background-color: #e9ecef;
+  border-radius: 5em;
+  padding-inline: 30px;
+  padding-block: 8px;
+}
+
+.extra-option {
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  border: none;
+
+  font-size: 19px;
+  padding-inline: 40px;
+  padding-block: 14px;
+  border-radius: 5em;
+
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #147bfc;
+  color: white;
+}
+.btn-secondary {
+  background-color: #eef6ff;
+  color: #147bfc;
+}

@@ -1,0 +1,47 @@
+.container {
+  background-size: cover;
+
+  display: flex;
+  align-items: flex-end;
+
+  padding-inline: 190px;
+
+  direction: rtl;
+}
+
+.search-result {
+  background-image: url(../../assets/img/search-heading-bg.png);
+  height: 371px;
+}
+
+.book-detail {
+  background-image: url(../../assets/img/book-detail-heading-bg.png);
+  height: 254px;
+}
+
+.heading-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  gap: 18px;
+
+  margin-bottom: 65px;
+}
+
+.heading {
+  position: relative;
+  font-family: "DroidArabicKufiRegular";
+
+  color: white;
+  font-size: 50px;
+  font-weight: bold;
+  line-height: 67px;
+}
+
+.horizontalLine {
+  background-color: #147bfc;
+  height: 63px;
+  width: 5px;
+  border-right: 5px;
+}
